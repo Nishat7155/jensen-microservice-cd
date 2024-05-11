@@ -16,7 +16,7 @@
 resource "google_project_iam_custom_role" "deploy_role_allen-demo" {
   role_id     = "customRoleDeploy"
   title       = "Deploy Custom Role allen-demo"
-  description = "Custom role for deploy workflows of allen-demo"
+  description = "Custom role for deploy workflows of pdf-converter"
   permissions = [
     "artifactregistry.repositories.uploadArtifacts",
     "artifactregistry.repositories.downloadArtifacts",

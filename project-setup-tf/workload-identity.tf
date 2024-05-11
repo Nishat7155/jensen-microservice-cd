@@ -1,7 +1,7 @@
-resource "google_iam_workload_identity_pool" "allen-demo" {
+resource "google_iam_workload_identity_pool" "pdf-converter" {
   project                   = var.project_id
   provider                  = google
-  workload_identity_pool_id = "github-pool-allen-demo"
+  workload_identity_pool_id = "github-pdf-converter-demo"
   display_name              = "Github Identity Pool "
   description               = "Identity pool for Github Actions for allen-demo"
   disabled                  = false
@@ -17,7 +17,7 @@ resource "google_iam_workload_identity_pool_provider" "wif_provider" {
   workload_identity_pool_provider_id = "github-provider"
   display_name                       = "Github Identity Pool Provider"
   description                        = "Identity pool provider for Github Actions."
-  attribute_condition                = "attribute.repository in ['ingka-group-digital/ca-demo']"
+  attribute_condition                = "attribute.repository in ['jensen-microservice-cd/pdf-converter']"
   attribute_mapping = {
     "google.subject"             = "assertion.sub"
     "attribute.repository"       = "assertion.repository"
@@ -36,7 +36,7 @@ data "google_iam_policy" "wif_service_account_policy" {
     role = "roles/iam.workloadIdentityUser"
 
     members = [
-      "principalSet://iam.googleapis.com/${google_iam_workload_identity_pool.allen-demo.name}/attribute.repository/ingka-group-digital/ca-demo",
+      "principalSet://iam.googleapis.com/${google_iam_workload_identity_pool.pdf-converter.name}/attribute.repository/https://github.com/Nishat7155/jensen-microservice-cd/",
     ]
   }
 }

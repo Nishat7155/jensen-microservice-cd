@@ -3,7 +3,7 @@ locals {
     terraformed   = "true"
     initial-setup = "true"
   }
-  labels_allen-demo        = merge(local.labels_shared, { application = "allen-demo" })
+  labels_allen-demo        = merge(local.labels_shared, { application = "pdf-converter" })
  
 }
 
@@ -16,7 +16,7 @@ resource "google_project_service" "project_apis" {
 resource "google_artifact_registry_repository" "allen-demo" {
   location      = var.region
   repository_id = "allen-demo"
-  description   = "Repository for customer admin allen-demo service"
+  description   = "Repository for pdf-converter service"
   format        = "DOCKER"
 
   depends_on = [google_project_service.project_apis]
