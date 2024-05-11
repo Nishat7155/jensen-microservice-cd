@@ -1,0 +1,11 @@
+{
+    "project_id": "ingka-icf-cwebpilot-dev",
+    "location": "EU",
+    "region": "europe-west3",
+    "cloudrun_sa": "allen-demo-identity@ingka-allen-demo.iam.gserviceaccount.com",
+    "gcp_service_list": [
+      "iam.googleapis.com",
+      "cloudresourcemanager.googleapis.com",
+      "run.googleapis.com"
+    ]
+  }
