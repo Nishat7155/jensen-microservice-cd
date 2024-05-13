@@ -1,6 +1,6 @@
 {
     "project_id": "",
-    "environment": "stage",
+    "environment": "dev",
     "location": "EU",
     "region": "europe-west3"
   }
