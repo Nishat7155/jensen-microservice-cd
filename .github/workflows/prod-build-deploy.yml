@@ -3,7 +3,7 @@ name: Build and Deploy to Cloud Run
 
 on:
   workflow_run:
-    workflows: ["Dev Deployment"]
+    workflows: ["dev-build-deploy.yml"]
     branches:
       - main
     types:
