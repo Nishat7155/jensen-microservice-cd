@@ -3,11 +3,11 @@ name: Build and Deploy to Cloud Run
 
 on:
   push:
-    branches: [ "master" ]
+    branches: [ "main" ]
 
 env:
   PROJECT_ID: '${{ secrets.GCP_PROJECTID }}' # TODO: update Google Cloud project id
-  #GCR_LOCATION: europe-west4 # TODO: update Artifact Registry location
+  GCR_LOCATION:  '${{ secrets.GCP_GCR_LOCATION }}'# TODO: update Artifact Registry location
   SERVICE: '${{ secrets.GCP_SERVICE_NAME }}' # TODO: update Cloud Run service name
   REGION: '${{ secrets.GCP_REGION }}' # TODO: update Cloud Run service region
 
