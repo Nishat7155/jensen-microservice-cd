@@ -27,5 +27,17 @@ jobs:
       - name: Create Managed Service for Prometheus instance
         run: gcloud monitoring managed-prometheus instances create jensen-prometheus --region=europe-west4
       - name: Add Prometheus scrape target
-        run: gcloud monitoring managed-prometheus scrape-configs create --instance=jensen-prometheus --scrape-config='{"job_name": "jensen-micro-service", "scrape_interval": "15s", "static_configs": [{"targets": ["https://jensen-micro-service-dot-jensen-dev.run.app/metrics"], "labels": {"app": "jensen-micro-service", "region": "europe-west4"}}]}'
-
+        run: |
+         gcloud monitoring managed-prometheus scrape-configs create --instance=jensen-prometheus --scrape-config='{
+        "job_name": "jensen-micro-service",
+        "scrape_interval": "15s",
+        "static_configs": [
+        {
+          "targets": ["https://jensen-micro-service-dot-jensen-dev.run.app/metrics"],
+          "labels": {
+            "app": "jensen-micro-service",
+            "region": "europe-west4"
+          }
+        }
+      ]
+    }'
