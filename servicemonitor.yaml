@@ -1,0 +1,11 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: jensen-micro-service-monitor
+spec:
+  endpoints:
+  - port: http
+    interval: 15s
+  selector:
+    matchLabels:
+      app: jensen-micro-service
