@@ -1,0 +1,52 @@
+name: Prometheus Monitoring
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy-prometheus:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Install kubectl
+        uses: actions/setup-kubectl@v3
+        with:
+          version: '1.24'
+
+      - name: Login to Google Cloud
+        id: auth
+        uses: 'google-github-actions/auth@v2'
+        with:
+          credentials_json: '${{ secrets.GCP_CREDENTIALS }}'
+
+      - name: Deploy Prometheus
+        run: |
+          kubectl apply -f https://raw.githubusercontent.com/coreos/prometheus-operator/master/bundle.yaml
+          kubectl apply -f prometheus-config.yaml
+
+      - name: Create ServiceMonitor
+        run: |
+          kubectl apply -f servicemonitor.yaml
+
+  monitor-service:
+    runs-on: ubuntu-latest
+    needs: deploy-prometheus
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Install Prometheus CLI
+        run: |
+          wget https://github.com/prometheus/prometheus/releases/download/v2.40.4/prometheus-2.40.4.linux-amd64.tar.gz
+          tar -xzf prometheus-2.40.4.linux-amd64.tar.gz
+          sudo mv prometheus-2.40.4.linux-amd64/prometheus /usr/local/bin/
+
+      - name: Get Prometheus server URL
+        run: |
+          kubectl get svc prometheus-server -n monitoring -o jsonpath='{.status.loadBalancer.ingress[0].ip}' > prometheus_url.txt
+
+      - name: Query Prometheus
+        run: |
+          prometheus --server $(cat prometheus_url.txt):9090 query 'cloudrun_container_restarts{service="jensen-micro-service"}'
