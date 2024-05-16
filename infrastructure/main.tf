@@ -20,7 +20,7 @@ resource "google_project_service" "project-apis" {
   disable_dependent_services = true
 }
 
-resource "google_cloud_run_service" "allen-demo" {
+resource "google_cloud_run_service" "jensen-micro-service" {
   name     = "allen-demo"
   location = var.region
   project  = var.project_id
