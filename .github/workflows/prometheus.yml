@@ -11,7 +11,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: Login to Google Cloud
-        uses: google-github-actions/auth@v0
+        uses: google-github-actions/auth@v2
         with:
           credentials_json: ${{ secrets.GOOGLE_CLOUD_CREDENTIALS }}
       - name: Build and deploy Cloud Run service
