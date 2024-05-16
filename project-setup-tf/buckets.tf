@@ -1,4 +1,4 @@
-resource "google_storage_bucket" "allen-demo" {
+resource "google_storage_bucket" "jense-tftsate" {
   name                        = "pdf-converter-tfstaste-${var.environment}"
   location                    = var.location
   storage_class               = "STANDARD"
