@@ -1,10 +1,10 @@
 
 name: Build and Deploy to Cloud Run
-on: workflow_dispatch
 
-#on:
-  #push:
-    #branches: [ "main" ]
+
+on:
+  push:
+    branches: [ "main" ]
 
 env:
   PROJECT_ID: '${{ secrets.GCP_PROJECTID }}' # TODO: update Google Cloud project id
@@ -38,9 +38,6 @@ jobs:
         run: gcloud auth configure-docker
        
           
-
-
-
       - name: Build and Push Container
         run: |-
           docker build -t "gcr.io/${{ env.PROJECT_ID }}/${{ env.SERVICE }}:${{ github.sha }}" ./
