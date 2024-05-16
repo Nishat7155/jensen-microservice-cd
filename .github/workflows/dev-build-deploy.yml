@@ -8,7 +8,7 @@ on: workflow_dispatch
 
 env:
   PROJECT_ID: '${{ secrets.GCP_PROJECTID }}' # TODO: update Google Cloud project id
-  GCR_LOCATION:  '${{ secrets.GCP_GCR_LOCATION }}'# TODO: update Artifact Registry location
+  GCR_LOCATION:  '${{ secrets.GCP_GCR_LOCATION }}' # TODO: update Artifact Registry location
   SERVICE: '${{ secrets.GCP_SERVICE_NAME }}' # TODO: update Cloud Run service name
   REGION: '${{ secrets.GCP_REGION }}' # TODO: update Cloud Run service region
 
@@ -47,10 +47,14 @@ jobs:
           docker push "gcr.io/${{ env.PROJECT_ID }}/${{ env.SERVICE }}:${{ github.sha }}"
 
       # END - Docker auth and build
-
-
-      - name: Deploy with Terraform
-      
+  deploy_with_terraform:
+    name: Deploy with Terraform
+    permissions:
+        contents: 'read'
+        id-token: 'write'
+        
+    runs-on: ubuntu-latest
+    steps:   
       - name: Checkout
         uses: actions/checkout@v4
       - name: Setup Terraform
@@ -75,4 +79,3 @@ jobs:
 
       - name: Show Output
         run: echo ${{ steps.deploy.outputs.url }}
-
