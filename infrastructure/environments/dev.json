@@ -1,7 +1,7 @@
 {
     "project_id": "",
     "location": "EU",
-    "region": "europe-west3",
+    "region": "europe-west4",
     "cloudrun_sa": "jensen-microservice-cd@pdf-converter.iam.gserviceaccount.com",
     "gcp_service_list": [
       "iam.googleapis.com",
