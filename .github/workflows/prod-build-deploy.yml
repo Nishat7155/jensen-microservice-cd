@@ -1,14 +1,9 @@
 
-name: Build and Deploy to Cloud Run
+name: Build and Deploy to Cloud Run prod
 
-on:
-  workflow_run:
-    workflows: ["dev-build-deploy.yml"]
-    branches:
-      - main
-    types:
-      - completed
+on:  workflow_dispatch
 
+  
 env:
   PROJECT_ID: '${{ secrets.GCP_PROJECTID }}' # TODO: update Google Cloud project id
   GCR_LOCATION:  '${{ secrets.GCP_GCR_LOCATION }}' # TODO: update Artifact Registry location
@@ -41,9 +36,6 @@ jobs:
         run: gcloud auth configure-docker
        
           
-
-
-
       - name: Build and Push Container
         run: |-
           docker build -t "gcr.io/${{ env.PROJECT_ID }}/${{ env.SERVICE }}:${{ github.sha }}" ./
