@@ -13,9 +13,9 @@ resource "google_project_service" "project_apis" {
   disable_dependent_services = true
 }
 
-resource "google_artifact_registry_repository" "allen-demo" {
+resource "google_artifact_registry_repository" "jensen.microservice" {
   location      = var.region
-  repository_id = "allen-demo"
+  repository_id = "jensen-microservice"
   description   = "Repository for pdf-converter service"
   format        = "DOCKER"
 
